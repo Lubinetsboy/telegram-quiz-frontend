@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const tg = window.Telegram ? window.Telegram.WebApp : null;
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [quizzes, setQuizzes] = useState([]);
@@ -25,7 +26,7 @@ function App() {
       setLoadingQuizzes(true);
       setError('');
       try {
-        const res = await fetch('/api/quizzes');
+        const res = await fetch(`${API_URL}/api/quizzes`);
         if (!res.ok) {
           throw new Error('Ошибка при загрузке викторин');
         }
@@ -52,7 +53,8 @@ function App() {
     setError('');
 
     try {
-      const res = await fetch(`/api/quizzes/${quizId}`);
+      const res = await fetch(`${API_URL}/api/quizzes/${quizId}`);
+
       if (!res.ok) {
         throw new Error('Ошибка при загрузке викторины');
       }
